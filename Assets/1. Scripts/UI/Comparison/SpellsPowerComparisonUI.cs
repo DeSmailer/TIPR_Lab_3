@@ -9,6 +9,8 @@ public class SpellsPowerComparisonUI : MonoBehaviour
 
     public void Initialize()
     {
+        SpellsData.Instance.OnDataChange += Fill;
+
         Fill();
     }
 
@@ -33,5 +35,10 @@ public class SpellsPowerComparisonUI : MonoBehaviour
         _repeatingCells[1].FillText(SpellsData.Instance.MyProtection.ToString(), (-SpellsData.Instance.EnemyProtection).ToString());
         _repeatingCells[2].FillText(SpellsData.Instance.MyHeal.ToString(), (-SpellsData.Instance.EnemyHeal).ToString());
         _repeatingCells[3].FillText("0", "0");
+    }
+
+    private void OnDestroy()
+    {
+        SpellsData.Instance.OnDataChange -= Fill;
     }
 }
