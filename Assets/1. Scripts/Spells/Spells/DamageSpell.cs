@@ -21,7 +21,14 @@ public class DamageSpell : Spell
     {
         yield return new WaitForSeconds(delay);
 
-        _target.TakeDamage(SpellsData.Instance.MyDamage);
+        if (PersonType == PersonType.Me)
+        {
+            _target.TakeDamage(SpellsData.Instance.MyDamage);
+        }
+        else
+        {
+            _target.TakeDamage(SpellsData.Instance.EnemyDamage);
+        }
 
         yield return null;
         _OnEndCallback?.Invoke();

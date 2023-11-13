@@ -10,19 +10,25 @@ public class ProtectionSpell : Spell
 
     public override void Activate(Action OnEndCallback = null)
     {
-        _target.TurnOnShield
-            TakeDamage(SpellsData.Instance.MyDamage);
+        if (PersonType == PersonType.Me)
+        {
+            _target.TurnOnShield(SpellsData.Instance.MyProtection);
+        }
+        else
+        {
+            _target.TurnOnShield(SpellsData.Instance.EnemyProtection);
+        }
+
         _OnEndCallback = OnEndCallback;
         _animator.Play("");
 
-        StartCoroutine(MakeDamage(_delay));
+        StartCoroutine(MakeShield(_delay));
     }
 
-    private IEnumerator MakeDamage(float delay)
+    private IEnumerator MakeShield(float delay)
     {
         yield return new WaitForSeconds(delay);
         _effect.SetActive(true);
-
 
         yield return null;
         _OnEndCallback?.Invoke();

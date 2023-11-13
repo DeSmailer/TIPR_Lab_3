@@ -8,7 +8,20 @@ public class HP : MonoBehaviour
 
     [SerializeField] private float _shieldPower;
 
-    public float CurrentHP => _hp;
+    public float CurrentHP
+    {
+        get { return _hp; }
+        set
+        {
+            _hp = value; 
+
+            if (_hp > MaxHP)
+            {
+                _hp = MaxHP;
+            }
+        }
+    }
+
     public float MaxHP => _maxHP;
 
     public Action OnDead;
@@ -40,7 +53,7 @@ public class HP : MonoBehaviour
         }
     }
 
-    public void TurnOnShield(int power)
+    public void TurnOnShield(float power)
     {
         _shieldPower = power;
     }
