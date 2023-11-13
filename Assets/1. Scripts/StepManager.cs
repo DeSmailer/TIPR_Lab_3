@@ -12,22 +12,24 @@ public class StepManager : MonoBehaviour
     [SerializeField] private SelectedSpells _selectedSpells;
     [SerializeField] private EnemySpells _enemySpells;
 
-    [SerializeField] private Action OnEnded1;
-    [SerializeField] private Action OnEnded2;
+    //[SerializeField] private Action OnEnded1;
+    //[SerializeField] private Action OnEnded2;
 
-    [SerializeField] private float _delay;
+    [SerializeField] private float _delayBeforeNextStep;
 
-    private bool readyForNextStep = false;
+    [SerializeField] private bool readyForNextStep = true;
 
-    private bool ended1 = false;
-    private bool ended2 = false;
+    [SerializeField] private bool ended1 = false;
+    [SerializeField] private bool ended2 = false;
 
     public Action OnStepEnd;
 
     private void Awake()
     {
-        OnEnded1 += OnEnded1Handler;
-        OnEnded2 += OnEnded2Handler;
+        //OnEnded1 += OnEnded1Handler;
+        //OnEnded2 += OnEnded2Handler;
+
+        readyForNextStep = true;
     }
 
     private void Update()
@@ -36,16 +38,20 @@ public class StepManager : MonoBehaviour
         {
             if (ended1 == true && ended2 == true)
             {
-                StartCoroutine(DelayBeetwenNexStep(_delay));
+                StartCoroutine(DelayBeforeNextStep(_delayBeforeNextStep));
             }
         }
     }
 
-    private IEnumerator DelayBeetwenNexStep(float delay)
+    private IEnumerator DelayBeforeNextStep(float delay)
     {
         yield return new WaitForSeconds(delay);
 
         readyForNextStep = true;
+        _selectedSpells.ResetSpells();
+        _enemySpells.ResetSpells();
+        ended1 = false;
+        ended2 = false;
         OnStepEnd?.Invoke();
     }
 
@@ -54,6 +60,8 @@ public class StepManager : MonoBehaviour
         if (!readyForNextStep)
             return;
 
+
+
         Spell selectedSpell = _selectedSpells.SelectedSpell;
         Spell enemySpell = _enemySpells.SelectedSpell;
         if (selectedSpell != null && enemySpell != null)
@@ -61,10 +69,13 @@ public class StepManager : MonoBehaviour
             _myCurrentSpellImage.sprite = selectedSpell.Sprite;
             _enemyCurrentSpellImage.sprite = enemySpell.Sprite;
 
-            selectedSpell.Activate(OnEnded1);
-            enemySpell.Activate(OnEnded2);
-        }
+            readyForNextStep = false;
+            ended1 = false;
+            ended2 = false;
 
+            selectedSpell.Activate(OnEnded1Handler);
+            enemySpell.Activate(OnEnded2Handler);
+        }
     }
 
     private void OnEnded1Handler()
@@ -79,9 +90,9 @@ public class StepManager : MonoBehaviour
         ended2 = true;
     }
 
-    private void OnDestroy()
-    {
-        OnEnded1 -= OnEnded1Handler;
-        OnEnded2 -= OnEnded2Handler;
-    }
+    //private void OnDestroy()
+    //{
+    //    OnEnded1 -= OnEnded1Handler;
+    //    OnEnded2 -= OnEnded2Handler;
+    //}
 }

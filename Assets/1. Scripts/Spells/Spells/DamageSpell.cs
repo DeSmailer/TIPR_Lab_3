@@ -10,7 +10,7 @@ public class DamageSpell : Spell
 
     public override void Activate(Action OnEndCallback = null)
     {
-        _effect.SetActive(true);
+        _effect.gameObject.SetActive(true);
         _OnEndCallback = OnEndCallback;
         _animator.Play("");
 

@@ -8,7 +8,7 @@ public class HPUI : MonoBehaviour
 
     private void Start()
     {
-        _hp.OnTakeDamage += Display;
+        _hp.OnHPChange += Display;
         Display();
     }
 
@@ -19,6 +19,6 @@ public class HPUI : MonoBehaviour
 
     private void OnDestroy()
     {
-        _hp.OnTakeDamage -= Display;
+        _hp.OnHPChange -= Display;
     }
 }

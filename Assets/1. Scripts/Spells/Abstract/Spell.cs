@@ -19,7 +19,7 @@ public abstract class Spell : MonoBehaviour, ISpell
     public abstract void Activate(Action OnEndCallback = null);
     public virtual void Deactivate()
     {
-        _effect.SetActive(false);
+        _effect.gameObject.SetActive(false);
         _animator.Play("Idle");
     }
 }

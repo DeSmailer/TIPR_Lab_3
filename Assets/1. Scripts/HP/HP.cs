@@ -13,19 +13,20 @@ public class HP : MonoBehaviour
         get { return _hp; }
         set
         {
-            _hp = value; 
+            _hp = value;
 
             if (_hp > MaxHP)
             {
                 _hp = MaxHP;
             }
+            OnHPChange?.Invoke();
         }
     }
 
     public float MaxHP => _maxHP;
 
     public Action OnDead;
-    public Action OnTakeDamage;
+    public Action OnHPChange;
 
     private void Awake()
     {
@@ -45,7 +46,7 @@ public class HP : MonoBehaviour
             damage = 0;
         }
         _hp -= damage;
-        OnTakeDamage?.Invoke();
+        OnHPChange?.Invoke();
 
         if (_hp <= 0)
         {

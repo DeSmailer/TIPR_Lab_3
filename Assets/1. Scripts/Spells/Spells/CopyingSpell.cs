@@ -18,4 +18,9 @@ public class CopyingSpell : Spell
     {
         
     }
+
+    public override void Deactivate()
+    {
+        _animator.Play("Idle");
+    }
 }

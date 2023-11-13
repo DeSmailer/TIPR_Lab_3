@@ -11,7 +11,7 @@ public class EnemySpells : MonoBehaviour
     {
         get
         {
-            _selectedSpellIndex = Random.Range(0, 4);
+            _selectedSpellIndex = Random.Range(0, 3);
 
             return _spells[_selectedSpellIndex];
         }
