@@ -4,15 +4,26 @@ using UnityEngine;
 
 public class EnemySpells : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private List<Spell> _spells;
+    [SerializeField] private int _selectedSpellIndex;
+
+    public Spell SelectedSpell
     {
-        
+        get
+        {
+            _selectedSpellIndex = Random.Range(0, 4);
+
+            return _spells[_selectedSpellIndex];
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void ResetSpells()
     {
-        
+        _selectedSpellIndex = -1;
+
+        foreach (var item in _spells)
+        {
+            item.Deactivate();
+        }
     }
 }

@@ -1,18 +1,19 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class AttackSpell : Spell
+public class DamageSpell : Spell
 {
     [SerializeField] private HP _target;
-    [SerializeField] private GameObject _effect;
-    [SerializeField] private Animator _animator;
 
-    [SerializeField] private float _delay;
+    [SerializeField] private Action _OnEndCallback;
 
-    public override void Activate()
+    public override void Activate(Action OnEndCallback = null)
     {
         _effect.SetActive(true);
+        _OnEndCallback = OnEndCallback;
+        _animator.Play("");
+
         StartCoroutine(MakeDamage(_delay));
     }
 
@@ -23,5 +24,6 @@ public class AttackSpell : Spell
         _target.TakeDamage(SpellsData.Instance.MyDamage);
 
         yield return null;
+        _OnEndCallback?.Invoke();
     }
 }
