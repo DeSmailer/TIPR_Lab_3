@@ -7,11 +7,14 @@ public class EnemySpells : MonoBehaviour
     [SerializeField] private List<Spell> _spells;
     [SerializeField] private int _selectedSpellIndex;
 
+    [SerializeField] private int _minIndex = 0;
+    [SerializeField] private int _maxIndex = 4;
+
     public Spell SelectedSpell
     {
         get
         {
-            _selectedSpellIndex = Random.Range(0, 3);
+            _selectedSpellIndex = Random.Range(_minIndex, _maxIndex);
 
             return _spells[_selectedSpellIndex];
         }

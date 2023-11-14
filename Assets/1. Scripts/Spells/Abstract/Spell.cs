@@ -8,6 +8,7 @@ public abstract class Spell : MonoBehaviour, ISpell
     [SerializeField] protected Animator _animator;
 
     [SerializeField] protected float _delay;
+    [SerializeField] protected float _duration;
 
     [SerializeField] protected SpellType _spellType;
     [SerializeField] protected PersonType _personType;

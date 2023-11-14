@@ -60,8 +60,6 @@ public class StepManager : MonoBehaviour
         if (!readyForNextStep)
             return;
 
-
-
         Spell selectedSpell = _selectedSpells.SelectedSpell;
         Spell enemySpell = _enemySpells.SelectedSpell;
         if (selectedSpell != null && enemySpell != null)
@@ -73,8 +71,29 @@ public class StepManager : MonoBehaviour
             ended1 = false;
             ended2 = false;
 
-            selectedSpell.Activate(OnEnded1Handler);
-            enemySpell.Activate(OnEnded2Handler);
+            if (selectedSpell.SpellType == SpellType.Copying || enemySpell.SpellType == SpellType.Copying)
+            {
+                if (selectedSpell.SpellType == SpellType.Copying && enemySpell.SpellType != SpellType.Copying)
+                {
+                    ((CopyingSpell)selectedSpell).Activate(enemySpell.SpellType, OnEnded1Handler);
+                    enemySpell.Activate(OnEnded2Handler);
+                }
+                else if (selectedSpell.SpellType != SpellType.Copying && enemySpell.SpellType == SpellType.Copying)
+                {
+                    ((CopyingSpell)enemySpell).Activate(selectedSpell.SpellType, OnEnded2Handler);
+                    selectedSpell.Activate(OnEnded1Handler);
+                }
+                else
+                {
+                    OnEnded1Handler();
+                    OnEnded2Handler();
+                }
+            }
+            else
+            {
+                selectedSpell.Activate(OnEnded1Handler);
+                enemySpell.Activate(OnEnded2Handler);
+            }
         }
     }
 

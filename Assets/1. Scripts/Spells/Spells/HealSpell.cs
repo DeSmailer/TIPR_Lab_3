@@ -33,4 +33,5 @@ public class HealSpell : Spell
         yield return null;
         _OnEndCallback?.Invoke();
     }
+
 }

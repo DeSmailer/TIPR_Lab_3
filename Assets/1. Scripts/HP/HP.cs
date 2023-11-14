@@ -45,10 +45,9 @@ public class HP : MonoBehaviour
             _shieldPower -= damage;
             damage = 0;
         }
-        _hp -= damage;
-        OnHPChange?.Invoke();
+        CurrentHP -= damage;
 
-        if (_hp <= 0)
+        if (CurrentHP <= 0)
         {
             OnDead?.Invoke();
         }

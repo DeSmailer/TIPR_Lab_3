@@ -10,16 +10,16 @@ public class DamageSpell : Spell
 
     public override void Activate(Action OnEndCallback = null)
     {
-        _effect.gameObject.SetActive(true);
         _OnEndCallback = OnEndCallback;
         _animator.Play("");
 
-        StartCoroutine(MakeDamage(_delay));
+        StartCoroutine(MakeDamage());
     }
 
-    private IEnumerator MakeDamage(float delay)
+    private IEnumerator MakeDamage()
     {
-        yield return new WaitForSeconds(delay);
+        yield return new WaitForSeconds(_delay);
+        _effect.gameObject.SetActive(true);
 
         if (PersonType == PersonType.Me)
         {
@@ -30,7 +30,9 @@ public class DamageSpell : Spell
             _target.TakeDamage(SpellsData.Instance.EnemyDamage);
         }
 
-        yield return null;
+        yield return new WaitForSeconds(_duration);
+
+        _effect.gameObject.SetActive(false);
         _OnEndCallback?.Invoke();
     }
 }
