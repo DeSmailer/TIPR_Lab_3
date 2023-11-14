@@ -10,15 +10,6 @@ public class HealSpell : Spell
 
     public override void Activate(Action OnEndCallback = null)
     {
-        if (PersonType == PersonType.Me)
-        {
-            _target.CurrentHP += SpellsData.Instance.MyHeal;
-        }
-        else
-        {
-            _target.CurrentHP += SpellsData.Instance.EnemyHeal;
-        }
-
         _OnEndCallback = OnEndCallback;
         _animator.Play("");
 
@@ -27,8 +18,20 @@ public class HealSpell : Spell
 
     private IEnumerator MakeHeal(float delay)
     {
-        yield return new WaitForSeconds(delay);
+        yield return new WaitForSeconds(0.1f);
+
         _effect.SetActive(true);
+
+        yield return new WaitForSeconds(delay);
+
+        if (PersonType == PersonType.Me)
+        {
+            _target.CurrentHP += SpellsData.Instance.MyHeal;
+        }
+        else
+        {
+            _target.CurrentHP += SpellsData.Instance.EnemyHeal;
+        }
 
         yield return null;
         _OnEndCallback?.Invoke();
