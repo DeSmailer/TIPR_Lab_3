@@ -35,4 +35,10 @@ public class ProtectionSpell : Spell
         yield return null;
         _OnEndCallback?.Invoke();
     }
+
+    public override void Deactivate()
+    {
+        base.Deactivate();
+        _target.TurnOffShield();
+    }
 }
