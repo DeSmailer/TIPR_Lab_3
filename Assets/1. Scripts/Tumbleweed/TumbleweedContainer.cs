@@ -2,9 +2,6 @@ using UnityEngine;
 
 public class TumbleweedContainer : MonoBehaviour
 {
-    //[SerializeField] private Transform _point1;
-    //[SerializeField] private Transform _point2;
-
     [SerializeField] private Transform _tumbleweed;
 
     [SerializeField] private float _speed;
@@ -17,33 +14,10 @@ public class TumbleweedContainer : MonoBehaviour
         _tumbleweed.position = _pointToMoveTo[_currentPoint].position;
     }
 
-    //void Update()
-    //{
-    //    var step = _speed * Time.deltaTime;
-    //    _tumbleweed.position = Vector3.MoveTowards(_tumbleweed.position, _point2.position, step);
-    //    if (Vector3.Distance(_tumbleweed.position, _point2.position) <= 0.1f)
-    //    {
-    //        _tumbleweed.position = _point1.position;
-    //    }
-    //}
-
-    //private void OnDrawGizmos()
-    //{
-    //    Gizmos.color = Color.blue;
-    //    Gizmos.DrawLine(_point1.position, _point2.position);
-
-    //    Gizmos.DrawSphere(_point1.position, 0.5f);
-    //    Gizmos.DrawSphere(_point2.position, 0.5f);
-    //}
-
-
-
-    // Update is called once per frame
     void Update()
     {
         if (Vector2.Distance(_tumbleweed.position, _pointToMoveTo[_currentPoint].position) < .1f)
         {
-            Debug.Log("Reached point.");
             _currentPoint++;
         }
 
@@ -55,9 +29,6 @@ public class TumbleweedContainer : MonoBehaviour
 
         var step = _speed * Time.deltaTime;
         _tumbleweed.position = Vector3.MoveTowards(_tumbleweed.position, _pointToMoveTo[_currentPoint].position, step);
-
-        //moveDirection.Normalize();
-        //theRB.velocity = moveDirection * speed;
     }
 
     private void OnDrawGizmos()

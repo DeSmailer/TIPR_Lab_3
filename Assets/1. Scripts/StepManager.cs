@@ -24,11 +24,8 @@ public class StepManager : MonoBehaviour
 
     public Action OnStepEnd;
 
-    private void Awake()
+    public void Initialize()
     {
-        //OnEnded1 += OnEnded1Handler;
-        //OnEnded2 += OnEnded2Handler;
-
         readyForNextStep = true;
     }
 
@@ -47,6 +44,11 @@ public class StepManager : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
 
+        StepEnd();
+    }
+
+    private void StepEnd()
+    {
         readyForNextStep = true;
         _selectedSpells.ResetSpells();
         _enemySpells.ResetSpells();
