@@ -11,7 +11,7 @@ public class DamageSpell : Spell
     public override void Activate(Action OnEndCallback = null)
     {
         _OnEndCallback = OnEndCallback;
-        _animator.Play("");
+        _animator.Play("Attack02Start");
 
         StartCoroutine(MakeDamage());
     }
@@ -33,6 +33,9 @@ public class DamageSpell : Spell
         yield return new WaitForSeconds(_duration);
 
         _effect.gameObject.SetActive(false);
+        yield return new WaitForSeconds(0.1f);
+        _animator.Play("Idle03");
+
         _OnEndCallback?.Invoke();
     }
 }

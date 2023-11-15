@@ -43,6 +43,6 @@ public class CopyingSpell : Spell
             _currentSpell.Deactivate();
         }
         _currentSpell = null;
-        _animator.Play("Idle");
+        _animator.Play("Idle03");
     }
 }

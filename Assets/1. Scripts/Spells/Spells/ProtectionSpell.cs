@@ -20,7 +20,7 @@ public class ProtectionSpell : Spell
         }
 
         _OnEndCallback = OnEndCallback;
-        _animator.Play("");
+        _animator.Play("VictoryStart");
 
         StartCoroutine(MakeShield(_delay));
     }

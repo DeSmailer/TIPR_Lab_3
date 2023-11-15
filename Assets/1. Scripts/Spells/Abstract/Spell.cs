@@ -21,7 +21,7 @@ public abstract class Spell : MonoBehaviour, ISpell
     public virtual void Deactivate()
     {
         _effect.gameObject.SetActive(false);
-        _animator.Play("Idle");
+        _animator.Play("Idle03");
     }
 }
 

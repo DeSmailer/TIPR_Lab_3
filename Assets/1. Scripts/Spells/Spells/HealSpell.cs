@@ -11,7 +11,7 @@ public class HealSpell : Spell
     public override void Activate(Action OnEndCallback = null)
     {
         _OnEndCallback = OnEndCallback;
-        _animator.Play("");
+        _animator.Play("Interact");
 
         StartCoroutine(MakeHeal(_delay));
     }
