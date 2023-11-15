@@ -30,6 +30,8 @@ public class ProtectionSpell : Spell
         yield return new WaitForSeconds(delay);
         _effect.SetActive(true);
 
+        yield return new WaitForSeconds(_duration);
+
         yield return null;
         _OnEndCallback?.Invoke();
     }

@@ -33,6 +33,8 @@ public class HealSpell : Spell
             _target.CurrentHP += SpellsData.Instance.EnemyHeal;
         }
 
+        yield return new WaitForSeconds(_duration);
+
         yield return null;
         _OnEndCallback?.Invoke();
     }
